@@ -59,5 +59,58 @@ class GoodNightView(APIView):
         # Response class converts python native type to json
 
         return Response(data=context)
+    
+"""
+URL: localhost:8000/add/
+Method: POST
+Body:{num1:100,num2:200}
+Response: 300
+"""
+
+class AddView(APIView):
+
+    def post(self,request,*args, **kwargs):
+
+        # to retrieve client-side data : request.data
+
+        data = request.data
+        
+        n1 = data.get('num1')
+        n2 = data.get('num2')
+
+        add_sum = int(n1) + int(n2)
+
+        context = {"Output":add_sum}
+
+        return Response(data=context)
+
+class ProductView(APIView):
+
+    def post(self,request,*args, **kwargs):
+
+        data = request.data
+
+        n1 = data.get('num1')
+        n2 = data.get('num2')
+
+        product = int(n1) * int(n2)
+
+        context = {"Output":product}
+
+        return Response(data=context)
 
 
+class BMIView(APIView):
+
+    def post(self,request,*args, **kwargs):
+
+        height = int(request.data.get("height"))
+        height_in_meter = height/100
+
+        weight_in_kg = int(request.data.get("weight"))
+
+        bmi = weight_in_kg/(height_in_meter**2)
+
+        context = {"BMI Value":bmi}
+
+        return Response(data=context)

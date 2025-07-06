@@ -22,5 +22,8 @@ urlpatterns = [
     path('goodmorning/', views.GoodMorningView.as_view()),
     path('goodafternoon/', views.GoodAfternoonView.as_view()),
     path('goodevening/',views.GoodEveningView.as_view()),
-    path('goodnight/',views.GoodNightView.as_view())
+    path('goodnight/',views.GoodNightView.as_view()),
+    path('add/',views.AddView.as_view()),
+    path('product/',views.ProductView.as_view()),
+    path('bmi/',views.BMIView.as_view())
 ]
