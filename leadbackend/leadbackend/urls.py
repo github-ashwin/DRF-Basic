@@ -19,5 +19,8 @@ from django.urls import path
 from api import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('goodmorning/', views.GoodMorningView.as_view())
+    path('goodmorning/', views.GoodMorningView.as_view()),
+    path('goodafternoon/', views.GoodAfternoonView.as_view()),
+    path('goodevening/',views.GoodEveningView.as_view()),
+    path('goodnight/',views.GoodNightView.as_view())
 ]
