@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from api.models import *
+from api.serializers import LeadSerializer
 # Create your views here.
 
 """
@@ -114,3 +116,36 @@ class BMIView(APIView):
         context = {"BMI Value":bmi}
 
         return Response(data=context)
+    
+
+#########################################################################
+    
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import LeadSerializer
+from .models import Lead
+
+
+class LeadListCreateView(APIView):
+
+    serializer_class = LeadSerializer  # Fixed typo: 'serilaizer_class' ➝ 'serializer_class'
+
+    def get(self,request,*args,**kwargs):
+
+        queryset = Lead.objects.all()
+
+        # SERIALIZATION: Converts Python queryset to Python native types (dict, list, etc.) which are then rendered into JSON.
+        serializer = self.serializer_class(queryset, many=True)
+
+        return Response(data=serializer.data)
+
+    def post(self,request,*args,**kwargs):
+
+        serializer = self.serializer_class(data=request.data)  # DESERIALIZATION: Incoming JSON ➝ Python native types
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(data=serializer.data)
+        else:
+            return Response(data=serializer.errors)

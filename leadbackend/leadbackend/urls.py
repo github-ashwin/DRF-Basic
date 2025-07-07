@@ -25,5 +25,6 @@ urlpatterns = [
     path('goodnight/',views.GoodNightView.as_view()),
     path('add/',views.AddView.as_view()),
     path('product/',views.ProductView.as_view()),
-    path('bmi/',views.BMIView.as_view())
+    path('bmi/',views.BMIView.as_view()),
+    path('leads/',views.LeadListCreateView.as_view())
 ]
