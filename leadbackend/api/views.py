@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from api.models import *
 from api.serializers import LeadSerializer
+from django.shortcuts import get_object_or_404
 # Create your views here.
 
 """
@@ -149,3 +150,31 @@ class LeadListCreateView(APIView):
             return Response(data=serializer.data)
         else:
             return Response(data=serializer.errors)
+        
+class LeadRetrieveUpdateDeleteView(APIView):
+
+    serializer_class = LeadSerializer
+
+    def get(self,request,*args, **kwargs):
+
+        id = kwargs.get('pk')
+        qs = get_object_or_404(Lead,id=id)
+
+        serializer = self.serializer_class(qs,many=False)
+
+        return Response(data=serializer.data)
+    
+    def put(self,request,*args, **kwargs):
+
+        id = kwargs.get('pk')
+        lead_instance = get_object_or_404(Lead,id=id)
+
+        serializer = self.serializer_class(data=request.data,instance=lead_instance)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(data=serializer.data)
+        else:
+            return Response(data=serializer.errors)
+
+

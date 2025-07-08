@@ -26,5 +26,6 @@ urlpatterns = [
     path('add/',views.AddView.as_view()),
     path('product/',views.ProductView.as_view()),
     path('bmi/',views.BMIView.as_view()),
-    path('leads/',views.LeadListCreateView.as_view())
+    path('leads/',views.LeadListCreateView.as_view()),
+    path('leads/<int:pk>/',views.LeadRetrieveUpdateDeleteView.as_view())
 ]

@@ -6,3 +6,16 @@ GET http://127.0.0.1:8000/leads/
 
 POST http://127.0.0.1:8000/leads/
 Content-Type: application/json
+
+# API for getting a specific lead
+
+GET http://127.0.0.1:8000/leads/1/
+
+# API for deleting a specific lead
+
+DELETE http://127.0.0.1:8000/leads/1/
+
+# API for updating a specific lead
+
+PUT http://127.0.0.1:8000/leads/
+Content-Type: application/json
