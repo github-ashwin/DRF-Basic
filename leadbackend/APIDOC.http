@@ -19,3 +19,7 @@ DELETE http://127.0.0.1:8000/leads/1/
 
 PUT http://127.0.0.1:8000/leads/
 Content-Type: application/json
+
+# API for listing all courses
+
+GET http://127.0.0.1:8000/courses/all/

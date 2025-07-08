@@ -155,16 +155,16 @@ class LeadRetrieveUpdateDeleteView(APIView):
 
     serializer_class = LeadSerializer
 
-    def get(self,request,*args, **kwargs):
+    def get(self,request,*args,**kwargs):
 
         id = kwargs.get('pk')
-        qs = get_object_or_404(Lead,id=id)
+        lead_instance = get_object_or_404(Lead,id=id)
 
-        serializer = self.serializer_class(qs,many=False)
+        serializer = self.serializer_class(lead_instance,many=False)
 
         return Response(data=serializer.data)
     
-    def put(self,request,*args, **kwargs):
+    def put(self,request,*args,**kwargs):
 
         id = kwargs.get('pk')
         lead_instance = get_object_or_404(Lead,id=id)
@@ -176,5 +176,24 @@ class LeadRetrieveUpdateDeleteView(APIView):
             return Response(data=serializer.data)
         else:
             return Response(data=serializer.errors)
+        
+    def delete(self,request,*args,**kwargs):
+
+        id = kwargs.get('pk')
+
+        lead = get_object_or_404(Lead, id=id)
+        lead.delete()
+
+        return Response(data={"message":"deleted"})
+    
+class CourseListView(APIView):
+
+    serializer_class = LeadSerializer
+
+    def get(self,request,*args,**kwargs):
+
+        courses = [val[0] for val in Lead.COURSE_OPTION]
+
+        return Response(data=courses)
 
 
