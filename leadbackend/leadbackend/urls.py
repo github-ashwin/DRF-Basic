@@ -28,5 +28,6 @@ urlpatterns = [
     path('bmi/',views.BMIView.as_view()),
     path('leads/',views.LeadListCreateView.as_view()),
     path('leads/<int:pk>/',views.LeadRetrieveUpdateDeleteView.as_view()),
-    path('courses/all/',views.CourseListView.as_view())
+    path('courses/all/',views.CourseListView.as_view()),
+    path('leads/summary/',views.LeadSummaryView.as_view())
 ]

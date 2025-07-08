@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from api.models import *
 from api.serializers import LeadSerializer
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
 # Create your views here.
 
 """
@@ -130,7 +131,7 @@ from .models import Lead
 
 class LeadListCreateView(APIView):
 
-    serializer_class = LeadSerializer  # Fixed typo: 'serilaizer_class' ➝ 'serializer_class'
+    serializer_class = LeadSerializer
 
     def get(self,request,*args,**kwargs):
 
@@ -195,5 +196,20 @@ class CourseListView(APIView):
         courses = [val[0] for val in Lead.COURSE_OPTION]
 
         return Response(data=courses)
+    
+class LeadSummaryView(APIView):
 
+    serializer_class = LeadSerializer
 
+    def get(self,request,*args,**kwargs):
+
+        current_month = timezone.now().month
+        current_year = timezone.now().year
+
+        current_month_lead_count = Lead.objects.filter(created_date__month=current_month, created_date__year=current_year).count()
+
+        context = {
+            "lead_count":current_month_lead_count
+        }
+
+        return Response(data=context)
