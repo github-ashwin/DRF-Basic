@@ -5,6 +5,8 @@ from api.models import *
 from api.serializers import LeadSerializer
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
+
+from rest_framework import authentication,permissions
 # Create your views here.
 
 """
@@ -131,6 +133,11 @@ from .models import Lead
 
 class LeadListCreateView(APIView):
 
+    authentication_classes = [authentication.BasicAuthentication]
+    permission_classes = [permissions.IsAdminUser]
+
+    # Need to pass username and password (here admin-password)
+
     serializer_class = LeadSerializer
 
     def get(self,request,*args,**kwargs):
@@ -153,6 +160,9 @@ class LeadListCreateView(APIView):
             return Response(data=serializer.errors)
         
 class LeadRetrieveUpdateDeleteView(APIView):
+
+    authentication_classes = [authentication.BasicAuthentication]
+    permission_classes = [permissions.IsAdminUser]
 
     serializer_class = LeadSerializer
 
@@ -189,6 +199,9 @@ class LeadRetrieveUpdateDeleteView(APIView):
     
 class CourseListView(APIView):
 
+    authentication_classes = [authentication.BasicAuthentication]
+    permission_classes = [permissions.IsAdminUser]
+
     serializer_class = LeadSerializer
 
     def get(self,request,*args,**kwargs):
@@ -198,6 +211,9 @@ class CourseListView(APIView):
         return Response(data=courses)
     
 class LeadSummaryView(APIView):
+
+    authentication_classes = [authentication.BasicAuthentication]
+    permission_classes = [permissions.IsAdminUser]
 
     serializer_class = LeadSerializer
 
